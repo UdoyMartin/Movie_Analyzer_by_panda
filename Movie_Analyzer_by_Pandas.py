@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 
 #step 1: Create Dataframe, find series, data_range
+
 movies = pd.DataFrame({
     "title":        ["Inception", "Titanic", "The Dark Knight", "Avatar",
                      "Interstellar", "Parasite", "The Avengers", "Joker",
@@ -42,3 +43,19 @@ print('\n Describe:\n', movies.describe())
 print('\n Shape;', movies.shape)
 print('\n Columns:\n', movies.columns.tolist())
 print('\n Index:', movies.index)
+print('\n Data Types:\n', movies.dtypes)
+
+#step 3: Selection & Indexing (loc, iloc, at, iat, boolean indexing)
+print('\n STEP 3 - Selection & Indexing\n')
+
+print('\n df["title"]:\n', movies["title"])
+print('\n df["title"]:\n', movies["title"].values)
+print('\n df[["title", "genre"]]:\n', movies[["title", "genre"]].to_string())
+print('\n df.loc[0:2, "title":"rating"]:\n', movies.loc[0:2, "title":"rating"])
+print('\n df.iloc[0:3, 0:4]:\n ', movies.iloc[0:3, 0:4])
+print('\n df.at[1, "title"]:', movies.at[1, 'title'])
+print('\n df.iat[0,1]:', movies.iat[0,1])
+
+#step 4: Filtering & sorting (boolean indexing, sort_values, sort_index)
+print('\n STEP 4 - Filtering & Sorting\n')
+
