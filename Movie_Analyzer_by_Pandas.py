@@ -109,8 +109,20 @@ print("\n Grade column added:\n", movies[["title", "rating", "grade"]])
 movies=movies.assign(roi =lambda x: ((x["revenue"]-x["budget"])/ x["budget"])*100).round(1)
 print("\n ROI column added:\n", movies[["title", "revenue", "budget", "roi"]])
 
-movies=movies.rename(columns={"revenue": "revenue-m", "budget": "budget-m"})
+movies=movies.rename(columns={"revenue": "revenue_m", "budget": "budget-m"})
 print("\n Columns renamed:\n", movies.columns.tolist())
 
 movies=movies.drop(columns=["grade"])
 print("\n Columns dropped:\n", movies.columns.tolist())
+
+#step 7: Sorting & Ranking
+print('\n STEP 7 - Sorting & Ranking\n')
+
+by_revenue=movies.sort_values(by="revenue_m", ascending=False)
+print('\n Sorted by revenue_m:\n', by_revenue[["title", "revenue_m"]].head (5))
+
+print('\n .nlargest(3, rating):\n ', movies.nlargest(3, "rating")[["title", "rating"]])
+print('\n .nsmallest(3, rating):\n ', movies.nsmallest(3, "rating")[["title", "rating"]])
+
+movies["revenue_rank"]=movies["revenue_m"].rank(ascending=False)
+print('\n Revenue Rank:\n', movies[["title", "revenue_m", "revenue_rank"]])
