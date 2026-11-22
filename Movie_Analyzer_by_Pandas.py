@@ -126,3 +126,24 @@ print('\n .nsmallest(3, rating):\n ', movies.nsmallest(3, "rating")[["title", "r
 
 movies["revenue_rank"]=movies["revenue_m"].rank(ascending=False)
 print('\n Revenue Rank:\n', movies[["title", "revenue_m", "revenue_rank"]])
+
+#step 8 - Groupby & aggregation
+print('\n STEP 8 - Groupby & Aggregation \n')
+
+print('\n Group by genre and calculate mean revenue:\n ', movies.groupby("genre")["revenue_m"].mean().round(1))
+genre_stats= movies.groupby("genre").agg(
+    avg_rating= ("raitng", "mean"),
+    total_revenue= ("revenue_m", "sum"),
+    movie_count=("title", "count")
+),round(1)
+print('\n Genre Stats:\n', genre_stats)
+
+movies["genre_avg-revenue"]= movies.groupby("genre")['revenue_m'].transform("mean").round(1)
+print('\n Transform genre_avg-revenue:\n', movies[["title", "genre", "revenue_m", "genre_avg-revenue"]])
+
+pivot_table=movies.pivot_table(movies, index="genre", values="revenue_m", columns="blockbuster", aggfunc="mean", fill_value=0)
+print('\n Pivot Table:\n', pivot_table)
+
+crosstab= pd.crosstab(movies["genre"], movies["blockbuster"])
+print('\n Crosstab ( genre vs blockbuster):\n', crosstab)
+
